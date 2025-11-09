@@ -91,6 +91,40 @@ type Led = Pin<Output, PB5>;
 
 #[arduino_hal::entry]
 fn main() -> ! {
+    // display();
+    // loop {}
+
+    let dp = arduino_hal::Peripherals::take().unwrap();
+    let pins = arduino_hal::pins!(dp);
+    let mut serial = arduino_hal::default_serial!(dp, pins, 115200);
+    let mut serial = move |byte: u8| serial.write_byte(byte);
+
+    let mut en = pins.d8.into_output();
+    let mut vcc = pins.d9.into_output();
+    let mut gnd = pins.d10.into_output();
+    let mut txd = pins.d11.into_pull_up_input();
+    let mut rxd = pins.d12.into_output();
+    let mut state = pins.d13.into_pull_up_input();
+
+    gnd.set_low();
+    vcc.set_high();
+
+    loop {
+        log(&mut serial, "Hello, World!");
+        log(&mut serial, "My name is Nic!");
+        arduino_hal::delay_ms(1000);
+    }
+}
+
+fn log(serial: &mut impl FnMut(u8), msg: &str) {
+    for byte in msg.bytes() {
+        serial(byte);
+    }
+    serial(b'\n');
+}
+
+#[allow(unused)]
+fn display() {
     let dp = arduino_hal::Peripherals::take().unwrap();
     let pins = arduino_hal::pins!(dp);
 
