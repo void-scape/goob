@@ -14,6 +14,7 @@ embedded-hal = "1.0"
 arduino-hal = { git = "https://github.com/rahix/avr-hal", rev = "5ccdd12d724d5b65273eb33a27cb55ab2ddcc865", features = [
 	"arduino-uno",
 ] }
+avr-device = "0.7"
 
 [profile.release]
 panic = "abort"

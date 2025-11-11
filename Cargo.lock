@@ -118,6 +118,7 @@ name = "goob"
 version = "0.1.0"
 dependencies = [
  "arduino-hal",
+ "avr-device",
  "embedded-hal 1.0.0",
 ]
 

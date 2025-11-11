@@ -3,4 +3,4 @@ target = "avr-none"
 rustflags = ["-C", "target-cpu=atmega328p"]
 
 [unstable]
-build-std = ["core"]
+build-std = ["core", "alloc"]
